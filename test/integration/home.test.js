@@ -39,12 +39,23 @@ describe('Home', () => {
         .expect(200);
       expect(res.body.data.length).toBe(2);
 
-
       const resWithLimit = await request
         .get('/categories/articles/entries?limit=1')
         .expect('Content-Type', /json/)
         .expect(200);
       expect(resWithLimit.body.data.length).toBe(1);
+
+      const resWithOffsetLimit = await request
+        .get('/categories/articles/entries?offset=1&limit=2')
+        .expect('Content-Type', /json/)
+        .expect(200);
+      expect(resWithOffsetLimit.body.data.length).toBe(1);
+
+      const resWithMoreOffset = await request
+        .get('/categories/articles/entries?offset=2')
+        .expect('Content-Type', /json/)
+        .expect(200);
+      expect(resWithMoreOffset.body.data.length).toBe(0);
     });
   });
 
