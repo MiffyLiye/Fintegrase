@@ -20,44 +20,70 @@ describe('Home', () => {
     });
   });
 
-  describe('POST /categories/users', () => {
-    it('<201> insert user to database', async () => {
+  describe('GET /categories/articles', () => {
+    it('<200> get articles from database', async () => {
       await request
-        .delete('/categories/users')
-        .expect(202);
+        .delete('/categories/articles');
 
       await request
-        .post('/categories/users')
-        .send({ name: 'tao' })
-        .expect('Content-Type', /json/)
-        .expect(201);
+        .post('/categories/articles')
+        .send({ name: 'tao' });
+
+      await request
+        .post('/categories/articles')
+        .send({ name: 'miffy' });
 
       const res = await request
-        .get('/categories/users')
+        .get('/categories/articles')
         .expect('Content-Type', /json/)
         .expect(200);
-      expect(res.body.length === 1).toBe(true);
-      expect(res.body[0].name === 'tao').toBe(true);
+      expect(res.body.data.length).toBe(2);
+
+
+      const resWithLimit = await request
+        .get('/categories/articles?limit=1')
+        .expect('Content-Type', /json/)
+        .expect(200);
+      expect(resWithLimit.body.data.length).toBe(1);
     });
   });
 
-  describe('DELETE /categories/users', () => {
-    it('<202> delete users in database', async () => {
+  describe('POST /categories/articles', () => {
+    it('<201> insert user to database', async () => {
       await request
-        .post('/categories/users')
+        .delete('/categories/articles');
+
+      await request
+        .post('/categories/articles')
         .send({ name: 'tao' })
         .expect('Content-Type', /json/)
         .expect(201);
 
+      const res = await request
+        .get('/categories/articles')
+        .expect('Content-Type', /json/)
+        .expect(200);
+      const articles = res.body.data;
+      expect(articles.length === 1).toBe(true);
+      expect(articles[0].name === 'tao').toBe(true);
+    });
+  });
+
+  describe('DELETE /categories/articles', () => {
+    it('<202> delete articles in database', async () => {
       await request
-        .delete('/categories/users')
+        .post('/categories/articles')
+        .send({ name: 'tao' });
+
+      await request
+        .delete('/categories/articles')
         .expect(202);
 
       const res = await request
-        .get('/categories/users')
+        .get('/categories/articles')
         .expect('Content-Type', /json/)
         .expect(200);
-      expect(res.body.length === 0).toBe(true);
+      expect(res.body.data.length === 0).toBe(true);
     });
   });
 

@@ -29,10 +29,24 @@ exports.welcome = ctx => {
 };
 
 exports.getEntries = async ctx => {
+  let offset = Math.round(parseFloat(ctx.query.offset || 0));
+  if (offset < 0) {
+    offset = 0;
+  }
+  let limit = Math.round(parseFloat(ctx.query.limit || 10));
+  if (limit > 100) {
+    limit = 100;
+  }
   const data = await ctx.mongo.db('test').collection(ctx.params.category)
     .find()
+    .skip(offset)
+    .limit(limit)
     .toArray();
-  ctx.body = data;
+  ctx.body = {
+    offset,
+    limit,
+    data
+  };
 };
 
 exports.createEntry = async ctx => {
