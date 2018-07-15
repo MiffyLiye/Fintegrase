@@ -1,5 +1,6 @@
 extends:
-  - 'kasa'
+  - 'eslint:recommended',
+  - 'standard',
 
 parserOptions:
   sourceType: 'script'
