@@ -43,8 +43,13 @@ exports.createEntry = async ctx => {
 };
 
 exports.deleteEntries = async ctx => {
-  await ctx.mongo.db('test').collection(ctx.params.category).drop();
-  ctx.status = 204;
+  try {
+    await ctx.mongo.db('test').collection(ctx.params.category).drop();
+  } catch (e) {
+    // no matter
+  }
+  ctx.status = 202;
+  ctx.body = {};
 };
 
 exports.showSwaggerSpec = ctx => {

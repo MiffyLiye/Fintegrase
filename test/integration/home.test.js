@@ -23,6 +23,10 @@ describe('Home', () => {
   describe('POST /categories/users', () => {
     it('<201> insert user to database', async () => {
       await request
+        .delete('/categories/users')
+        .expect(202);
+
+      await request
         .post('/categories/users')
         .send({ name: 'tao' })
         .expect('Content-Type', /json/)
@@ -32,7 +36,28 @@ describe('Home', () => {
         .get('/categories/users')
         .expect('Content-Type', /json/)
         .expect(200);
-      expect(res.body.length > 0).toBe(true);
+      expect(res.body.length === 1).toBe(true);
+      expect(res.body[0].name === 'tao').toBe(true);
+    });
+  });
+
+  describe('DELETE /categories/users', () => {
+    it('<202> delete users in database', async () => {
+      await request
+        .post('/categories/users')
+        .send({ name: 'tao' })
+        .expect('Content-Type', /json/)
+        .expect(201);
+
+      await request
+        .delete('/categories/users')
+        .expect(202);
+
+      const res = await request
+        .get('/categories/users')
+        .expect('Content-Type', /json/)
+        .expect(200);
+      expect(res.body.length === 0).toBe(true);
     });
   });
 
