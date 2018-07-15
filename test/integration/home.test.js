@@ -20,16 +20,16 @@ describe('Home', () => {
     });
   });
 
-  describe('POST /users', () => {
+  describe('POST /categories/users', () => {
     it('<201> insert user to database', async () => {
       await request
-        .post('/users')
+        .post('/categories/users')
         .send({ name: 'tao' })
         .expect('Content-Type', /json/)
         .expect(201);
 
       const res = await request
-        .get('/users')
+        .get('/categories/users')
         .expect('Content-Type', /json/)
         .expect(200);
       expect(res.body.length > 0).toBe(true);
