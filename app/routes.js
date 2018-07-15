@@ -8,6 +8,7 @@ const router = new Router();
 router.get('/', homeController.welcome);
 router.get('/categories/:category', homeController.getEntries);
 router.post('/categories/:category', homeController.createEntry);
+router.delete('/categories/:category', homeController.deleteEntries);
 router.get('/spec', homeController.showSwaggerSpec);
 
 module.exports = router;

@@ -42,6 +42,11 @@ exports.createEntry = async ctx => {
   ctx.body = data.result;
 };
 
+exports.deleteEntries = async ctx => {
+  await ctx.mongo.db('test').collection(ctx.params.category).drop();
+  ctx.status = 204;
+};
+
 exports.showSwaggerSpec = ctx => {
   ctx.body = spec;
 };
