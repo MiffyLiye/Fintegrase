@@ -57,11 +57,7 @@ exports.createEntry = async ctx => {
 };
 
 exports.deleteEntries = async ctx => {
-  try {
-    await ctx.mongo.db('test').collection(ctx.params.category).drop();
-  } catch (e) {
-    // no matter
-  }
+  await ctx.mongo.db('test').collection(ctx.params.category).remove();
   ctx.status = 202;
   ctx.body = {};
 };
