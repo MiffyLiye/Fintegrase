@@ -1,6 +1,9 @@
 extends:
-  - 'eslint:recommended',
-  - 'standard',
+  - 'eslint:recommended'
 
 parserOptions:
   sourceType: 'script'
+  ecmaVersion: 2018
+
+env:
+  node: true
