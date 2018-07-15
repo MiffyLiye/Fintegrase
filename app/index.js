@@ -16,6 +16,7 @@ const logMiddleware = require('./middlewares/log');
 const logger = require('./logger');
 const requestId = require('./middlewares/requestId');
 const responseHandler = require('./middlewares/responseHandler');
+const authHandler = require('./middlewares/authHandler');
 const router = require('./routes');
 
 
@@ -47,6 +48,8 @@ app.use(json({ pretty: false, param: 'pretty' }));
 app.use(responseHandler());
 app.use(errorHandler());
 app.use(logMiddleware({ logger }));
+app.use(authHandler());
+
 
 // Bootstrap application router
 app.use(router.routes());

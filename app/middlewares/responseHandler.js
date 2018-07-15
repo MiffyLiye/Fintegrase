@@ -71,6 +71,11 @@ function responseHandler() {
       ctx.res.fail(code, message, data);
     };
 
+    ctx.res.unauthorized = (code, message, data) => {
+      ctx.status = statusCodes.UNAUTHORIZED;
+      ctx.res.fail(code, message, data);
+    };
+
     ctx.res.forbidden = (code, message, data) => {
       ctx.status = statusCodes.FORBIDDEN;
       ctx.res.fail(code, message, data);
