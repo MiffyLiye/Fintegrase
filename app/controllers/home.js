@@ -25,7 +25,21 @@ exports.welcome = ctx => {
     author: pkginfo.author
   };
 
-  ctx.res.ok(data, 'Hello, API!');
+  ctx.body = data;
+};
+
+exports.getEntries = async ctx => {
+  const data = await ctx.mongo.db('test').collection(ctx.params.category)
+    .find()
+    .toArray();
+  ctx.body = data;
+};
+
+exports.createEntry = async ctx => {
+  const data = await ctx.mongo.db('test').collection(ctx.params.category)
+    .insert(ctx.request.body);
+  ctx.status = 201;
+  ctx.body = data.result;
 };
 
 exports.showSwaggerSpec = ctx => {

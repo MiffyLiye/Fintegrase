@@ -14,11 +14,25 @@ describe('Home', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      const { status, data, message } = res.body;
+      const data = res.body;
       const expected = ['name', 'version', 'description', 'author'];
-      expect(status).toBe('success');
-      expect(message).toBe('Hello, API!');
       expect(Object.keys(data)).toEqual(expect.arrayContaining(expected));
+    });
+  });
+
+  describe('POST /users', () => {
+    it('<201> insert user to database', async () => {
+      await request
+        .post('/users')
+        .send({ name: 'tao' })
+        .expect('Content-Type', /json/)
+        .expect(201);
+
+      const res = await request
+        .get('/users')
+        .expect('Content-Type', /json/)
+        .expect(200);
+      expect(res.body.length > 0).toBe(true);
     });
   });
 

@@ -7,6 +7,8 @@ const config = require('./config');
 const apm = require('./apm');
 
 const Koa = require('koa');
+const mongo = require('koa-mongo');
+const json = require('koa-json');
 const bodyParser = require('koa-bodyparser');
 const cors = require('kcors');
 const errorHandler = require('./middlewares/errorHandler');
@@ -23,6 +25,9 @@ const app = new Koa();
 app.proxy = true;
 
 // Set middlewares
+app.use(mongo());
+
+
 app.use(
   bodyParser({
     enableTypes: ['json', 'form'],
@@ -38,6 +43,7 @@ app.use(
     exposeHeaders: ['X-Request-Id']
   })
 );
+app.use(json({ pretty: false, param: 'pretty' }));
 app.use(responseHandler());
 app.use(errorHandler());
 app.use(logMiddleware({ logger }));
