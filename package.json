@@ -1,33 +1,31 @@
 {
-  "name": "koa-rest-api-boilerplate",
-  "version": "1.0.1",
-  "description": "Boilerplate for Koa RESTful API application with Docker, Swagger, Jest, Coveralls, and Circle CI",
-  "homepage": "https://github.com/posquit0/koa-rest-api-boilerplate",
+  "name": "Fintegrase",
+  "version": "1.0.0",
+  "description": "A Financial Information Aggregator",
+  "homepage": "https://bitbucket.org/MiffyLiye/fintegrase",
   "author": {
-    "name": "Claud D. Park",
-    "email": "posquit0.bj@gmail.com",
-    "url": "https://www.posquit0.com"
+    "name": "Wang, Tao",
+    "email": "i@miffyliye.org",
+    "url": "https://miffyliye.org"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/posquit0/koa-rest-api-boilerplate.git"
+    "url": "git@bitbucket.org:MiffyLiye/fintegrase.git"
   },
   "bugs": {
     "url": "https://github.com/posquit0/koa-rest-api-boilerplate/issues"
   },
   "keywords": [
-    "koa",
-    "koa2",
+    "financial",
+    "information",
+    "aggregator",
     "rest",
     "restful",
-    "api",
-    "koa-boilerplate",
-    "boilerplate",
-    "skeleton"
+    "api"
   ],
   "engines": {
-    "node": ">= 7.0.0"
+    "node": ">= 8.0.0"
   },
   "main": "app",
   "scripts": {
