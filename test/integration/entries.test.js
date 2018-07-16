@@ -52,6 +52,32 @@ describe('Entries', () => {
       expect(resWithMoreOffset.body.data.length).toBe(0);
     });
 
+    it('<200> query articles by uri', async () => {
+      await request
+        .delete('/categories/articles/entries')
+        .set('Authorization', adminAuthKey);
+
+      await request
+        .post('/categories/articles/entries')
+        .set('Authorization', adminAuthKey)
+        .send({uri: 'https://fintegrase.miffyliye.org/'});
+
+      await request
+        .post('/categories/articles/entries')
+        .set('Authorization', adminAuthKey)
+        .send({uri: 'https://fintegrase.miffyliye.com/'});
+
+      const res = await request
+        .get(`/categories/articles/entries?query=${encodeURIComponent(JSON.stringify({uri: 'https://fintegrase.miffyliye.org/'}))}`)
+        .set('Authorization', adminAuthKey)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(res.body.data.length).toBe(1);
+      expect(res.body.data[0].uri).toBe('https://fintegrase.miffyliye.org/');
+      expect(res.body.query.uri).toBe('https://fintegrase.miffyliye.org/');
+    });
+
     it('<401> get articles without auth key', async () => {
       const res = await request
         .get('/categories/articles/entries')
@@ -84,7 +110,6 @@ describe('Entries', () => {
       expect(articles.length).toBe(1);
       expect(articles[0].name).toBe('tao');
     });
-
 
     it('<401> insert user without auth key', async () => {
       const res = await request

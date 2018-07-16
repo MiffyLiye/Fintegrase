@@ -10,14 +10,21 @@ exports.getEntries = async ctx => {
   if (limit > 100) {
     limit = 100;
   }
+  let query;
+  try {
+    query = JSON.parse(ctx.query.query || '{}')
+  } catch (e) {
+    query = {};
+  }
   const data = await ctx.mongo.db('test').collection(ctx.params.category)
-    .find()
+    .find(query)
     .skip(offset)
     .limit(limit)
     .toArray();
   ctx.body = {
     offset,
     limit,
+    query,
     data
   };
 };
