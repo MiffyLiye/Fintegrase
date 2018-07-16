@@ -2,6 +2,7 @@
 
 const supertest = require('supertest');
 const app = require('../../app');
+const consumerAuthKey = 'consumer_auth_key';
 
 
 describe('Home', () => {
@@ -11,6 +12,7 @@ describe('Home', () => {
     it('<200> should always return with the API server information', async () => {
       const res = await request
         .get('/')
+        .set('Authorization', consumerAuthKey)
         .expect('Content-Type', /json/)
         .expect(200);
 
@@ -24,6 +26,7 @@ describe('Home', () => {
     it('<200> should always return API specification in swagger format', async () => {
       const res = await request
         .get('/spec')
+        .set('Authorization', consumerAuthKey)
         .expect('Content-Type', /json/)
         .expect(200);
 
