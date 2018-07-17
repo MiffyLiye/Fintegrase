@@ -154,6 +154,11 @@ describe('Entries', () => {
         .set('Authorization', adminAuthKey)
         .send({name: 'tao'});
 
+      await request
+        .post('/categories/articles/entries')
+        .set('Authorization', adminAuthKey)
+        .send({name: 'miffy'});
+
       const beforeRes = await request
         .get('/categories/articles/entries')
         .set('Authorization', adminAuthKey);
@@ -167,7 +172,7 @@ describe('Entries', () => {
       const afterRes = await request
         .get('/categories/articles/entries')
         .set('Authorization', adminAuthKey);
-      expect(afterRes.body.data.length).toBe(0);
+      expect(afterRes.body.data.length).toBe(1);
     });
   });
 });

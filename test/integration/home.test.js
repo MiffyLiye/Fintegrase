@@ -4,7 +4,6 @@ const supertest = require('supertest');
 const app = require('../../app');
 const consumerAuthKey = 'consumer_auth_key';
 
-
 describe('Home', () => {
   const request = supertest(app.listen());
 
