@@ -1,5 +1,5 @@
 'use strict';
-const MongoDb = require('mongodb');
+const ObjectId = require('mongodb').ObjectId;
 
 exports.getEntries = async ctx => {
   let offset = Math.round(parseFloat(ctx.query.offset || 0));
@@ -43,7 +43,7 @@ exports.deleteEntries = async ctx => {
 };
 
 exports.deleteEntry = async ctx => {
-  const data = await ctx.mongo.db('test').collection(ctx.params.category).deleteOne({_id: new MongoDb.ObjectId(ctx.params.id)});
+  const data = await ctx.mongo.db('test').collection(ctx.params.category).deleteOne({_id: new ObjectId(ctx.params.id)});
   ctx.status = 200;
   ctx.body = data.result;
 };
