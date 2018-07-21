@@ -13,9 +13,6 @@
     "type": "git",
     "url": "git@bitbucket.org:MiffyLiye/fintegrase.git"
   },
-  "bugs": {
-    "url": "https://github.com/posquit0/koa-rest-api-boilerplate/issues"
-  },
   "keywords": [
     "financial",
     "information",
