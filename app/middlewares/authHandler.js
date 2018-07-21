@@ -1,7 +1,8 @@
 'use strict';
+const config = require('../config');
 
-const consumerAuthKey = process.env.AUTH_KEY || 'consumer_auth_key';
-const adminAuthKey = process.env.ADMIN_AUTH_KEY || 'admin_auth_key';
+const consumerAuthKey = config.consumerAuthKey;
+const adminAuthKey = config.adminAuthKey;
 
 function authHandler() {
   return async (ctx, next) => {

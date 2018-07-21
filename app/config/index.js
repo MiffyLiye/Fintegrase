@@ -10,8 +10,10 @@ const env = process.env.NODE_ENV || 'development';
 const configs = {
   base: {
     env,
+    consumerAuthKey: process.env.AUTH_KEY || 'consumer_auth_key',
+    adminAuthKey: process.env.AUTH_KEY || 'admin_auth_key',
     name: process.env.APP_NAME || 'koa-rest-api-boilerplate',
-    host: process.env.APP_HOST || '0.0.0.0',
+    host: process.env.APP_HOST || '127.0.0.1',
     port: 7070
   },
   production: {
