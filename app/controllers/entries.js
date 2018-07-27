@@ -1,4 +1,5 @@
 'use strict';
+const config = require('../config');
 const ObjectId = require('mongodb').ObjectId;
 
 exports.getEntries = async ctx => {
@@ -16,7 +17,7 @@ exports.getEntries = async ctx => {
   } catch (e) {
     query = {};
   }
-  const data = await ctx.mongo.db('test').collection(ctx.params.category)
+  const data = await ctx.mongo.db(config.database).collection(ctx.params.category)
     .find(query)
     .skip(offset)
     .limit(limit)
@@ -30,20 +31,20 @@ exports.getEntries = async ctx => {
 };
 
 exports.createEntry = async ctx => {
-  const data = await ctx.mongo.db('test').collection(ctx.params.category)
+  const data = await ctx.mongo.db(config.database).collection(ctx.params.category)
     .insert(ctx.request.body);
   ctx.status = 201;
   ctx.body = data.result;
 };
 
 exports.deleteEntries = async ctx => {
-  await ctx.mongo.db('test').collection(ctx.params.category).remove();
+  await ctx.mongo.db(config.database).collection(ctx.params.category).remove();
   ctx.status = 202;
   ctx.body = {};
 };
 
 exports.deleteEntry = async ctx => {
-  const data = await ctx.mongo.db('test').collection(ctx.params.category).deleteOne({_id: new ObjectId(ctx.params.id)});
+  const data = await ctx.mongo.db(config.database).collection(ctx.params.category).deleteOne({_id: new ObjectId(ctx.params.id)});
   ctx.status = 200;
   ctx.body = data.result;
 };

@@ -10,6 +10,7 @@ const env = process.env.NODE_ENV || 'development';
 const configs = {
   base: {
     env,
+    database: process.env.DATABASE || 'test',
     consumerAuthKey: process.env.AUTH_KEY || 'consumer_auth_key',
     adminAuthKey: process.env.ADMIN_AUTH_KEY || 'admin_auth_key',
     name: process.env.APP_NAME || 'fintegrase',
